@@ -1,5 +1,5 @@
 ﻿// PDCursesSample.cpp : このファイルには 'main' 関数が含まれています。プログラム実行の開始と終了がそこで行われます。
-//
+//車両性能をみるプログラム
 #include "Setting.h"
 #include <stdio.h>
 #include <curses.h>
