@@ -12,13 +12,21 @@
 FILE* fp, fp2;
 char s[BUFFSIZE];
 char s2[BUFFSIZE];
-double data[MONTHS][NUMDATA];
+//double data[MONTHS][NUMDATA];
+
+struct Data {
+	double data[MONTHS][NUMDATA];
+	
+};
 
 void CSV2Array(const char* fileName, double data[MONTHS][NUMDATA]);
 
 
+
 void printGraph(double data[MONTHS][NUMDATA]);
 void printGraphsecond(double data[MONTHS][NUMDATA]);
+struct Data a;
+struct Data b;
 
 int main(int argc, char* argv[])
 {
@@ -41,7 +49,7 @@ int main(int argc, char* argv[])
 	}
 
 	//ファイル読み込み
-	CSV2Array(keyValue, data);
+	CSV2Array(keyValue, a.data);
 	//int a[] = { 7,9,10,12,16,21,26,30,20,15,11,9 };
 	//double a[] = { 7.0,9.0,10.0,12.0,16.0,21.0,26.0,30.0,20.0,15.0,11.0 ,9.0 };
 
@@ -53,7 +61,7 @@ int main(int argc, char* argv[])
 	while (true) {
 		// 画面をクリア
 		erase();
-		printGraph(data);
+		printGraph(a.data);
 		noecho();
 		cbreak();
 		keypad(stdscr, TRUE);
@@ -61,7 +69,7 @@ int main(int argc, char* argv[])
 
 		
 		if (key == KEY_RIGHT) {
-			printGraphsecond(data);
+			printGraphsecond(a.data);
 		}
 		
 
@@ -81,6 +89,7 @@ void CSV2Array(const char* fileName, double data[MONTHS][NUMDATA]) {
 	char* p;
 	int j = 0;
 	int n = 0;
+
 	errno_t error;
 	error = fopen_s(&fp, fileName, "r");
 	if (error != 0)
