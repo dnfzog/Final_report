@@ -69,6 +69,7 @@ int main(int argc, char* argv[])
 
 		
 		if (key == KEY_RIGHT) {
+			erase();
 			printGraphsecond(a.data);
 		}
 		
@@ -229,9 +230,9 @@ void printGraphsecond(double data[MONTHS][NUMDATA]) {
 	mvaddstr(2, 35, "降水量平均");
 	mvaddstr(1, 30, "2022年5月-2023年4月");
 	int k, j;
-	for (k = 12; k < 24; k++) {
+	for (k = 24; k < 36; k++) {
 		for (j = 0; j < (data[k][0] / 1000); j++) {
-			mvaddstr(i - (j + 1), 13 + ((k-12) * 5), "*");
+			mvaddstr(i - (j + 1), 13 + ((k-24) * 5), "*");
 		}
 
 	}
