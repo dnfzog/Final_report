@@ -6,7 +6,7 @@
 #include <Windows.h>
 #define CHARBUFF 124
 #define BUFFSIZE 1024
-#define MONTHS 24
+#define MONTHS 14949
 #define NUMDATA 1
 //fpは読み込み用、fp2は書き込み用
 FILE* fp, fp2;
@@ -107,7 +107,7 @@ void CSV2Array(const char* fileName, double data[MONTHS][NUMDATA]) {
 
 					//文字列を分離 
 					p = strtok_s(NULL, ",", &token);
-					if (i < 1) {
+					if (i < 2) {
 
 						double tmp = atof(p);
 						data[j][i] = tmp;
@@ -175,7 +175,7 @@ void printGraph(double data[MONTHS][NUMDATA]) {
 	mvaddstr(1, 30, "2021年5月-2022年4月");
 	int k, j;
 	for (k = 0; k < 12; k++) {
-		for (j = 0; j < (data[k][0] / 10); j++) {
+		for (j = 0; j < (data[k][0] / 1000); j++) {
 			mvaddstr(i - (j + 1), 13 + (k * 5), "*");
 		}
 
@@ -230,7 +230,7 @@ void printGraphsecond(double data[MONTHS][NUMDATA]) {
 	mvaddstr(1, 30, "2022年5月-2023年4月");
 	int k, j;
 	for (k = 12; k < 24; k++) {
-		for (j = 0; j < (data[k][0] / 10); j++) {
+		for (j = 0; j < (data[k][0] / 1000); j++) {
 			mvaddstr(i - (j + 1), 13 + ((k-12) * 5), "*");
 		}
 
