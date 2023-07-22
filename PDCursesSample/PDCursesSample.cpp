@@ -6,7 +6,7 @@
 #include <Windows.h>
 #define CHARBUFF 124
 #define BUFFSIZE 1024
-#define MONTHS 14949
+#define MONTHS 5000
 #define NUMDATA 1
 //fpは読み込み用、fp2は書き込み用
 FILE* fp, fp2;
