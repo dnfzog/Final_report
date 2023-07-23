@@ -24,7 +24,7 @@ struct Data {
 void CSV2Array(const char* fileName, double data[RPM][OTHERDATA]);
 
 
-
+void printGraphoutside();
 void printGraph(double data[RPM][OTHERDATA]);
 void printGraphsecond(double data[RPM][OTHERDATA]);
 struct Data a;
@@ -63,6 +63,7 @@ int main(int argc, char* argv[])
 	while (true) {
 		// 画面をクリア
 		erase();
+		printGraphoutside();
 		printGraph(a.data);
 		noecho();
 		cbreak();
@@ -72,6 +73,7 @@ int main(int argc, char* argv[])
 		
 		if (key == KEY_RIGHT) {
 			erase();
+			printGraphoutside();
 			printGraphsecond(a.data);
 		}
 		
@@ -129,8 +131,7 @@ void CSV2Array(const char* fileName, double data[RPM][OTHERDATA]) {
 	}
 }
 
-
-void printGraph(double data[RPM][OTHERDATA]) {
+void printGraphoutside() {
 	int i = 20;
 
 	// 文字列を描く
@@ -175,8 +176,13 @@ void printGraph(double data[RPM][OTHERDATA]) {
 	mvaddstr(5, 9, "150");
 	mvaddstr(4, 9, "降水量(mm)");
 	mvaddstr(2, 35, "降水量平均");
-	mvaddstr(1, 30, "2021年5月-2022年4月");
+	
+}
+
+void printGraph(double data[RPM][OTHERDATA]) {
+	int i = 20;
 	int k, j;
+	mvaddstr(1, 30, "2021年5月-2022年4月");
 	for (k = 0; k < 12; k++) {
 		for (j = 0; j < (data[k][0] / 1000); j++) {
 			mvaddstr(i - (j + 1), 13 + (k * 5), "*");
@@ -188,48 +194,8 @@ void printGraph(double data[RPM][OTHERDATA]) {
 void printGraphsecond(double data[RPM][OTHERDATA]) {
 	int i = 20;
 
-	// 文字列を描く
-	//mvaddstr(i, i, "Hello curses");
-	mvaddstr(i + 1, 13, "5");
-	mvaddstr(i + 1, 18, "6");
-	mvaddstr(i + 1, 23, "7");
-	mvaddstr(i + 1, 28, "8");
-	mvaddstr(i + 1, 33, "9");
-	mvaddstr(i + 1, 38, "10");
-	mvaddstr(i + 1, 43, "11");
-	mvaddstr(i + 1, 48, "12");
-	mvaddstr(i + 1, 53, "1");
-	mvaddstr(i + 1, 58, "2");
-	mvaddstr(i + 1, 63, "3");
-	mvaddstr(i + 1, 68, "4");
-	int z;
-	for (z = 13; z < 70; z++) {
-		mvaddstr(i, z, "_");
-	}
-	for (z = 5; z < 20; z++) {
-		mvaddstr(z, 12, "|");
-
-	}
-	mvaddstr(i + 1, 73, "(月)");
-	//i++;
-	mvaddstr(20, 10, "0");
-	mvaddstr(19, 10, "10");
-	mvaddstr(18, 10, "20");
-	mvaddstr(17, 10, "30");
-	mvaddstr(16, 10, "40");
-	mvaddstr(15, 10, "50");
-	mvaddstr(14, 10, "60");
-	mvaddstr(13, 10, "70");
-	mvaddstr(12, 10, "80");
-	mvaddstr(11, 10, "90");
-	mvaddstr(10, 9, "100");
-	mvaddstr(9, 9, "110");
-	mvaddstr(8, 9, "120");
-	mvaddstr(7, 9, "130");
-	mvaddstr(6, 9, "140");
-	mvaddstr(5, 9, "150");
-	mvaddstr(4, 9, "降水量(mm)");
-	mvaddstr(2, 35, "降水量平均");
+	
+	
 	mvaddstr(1, 30, "2022年5月-2023年4月");
 	int k, j;
 	for (k = 24; k < 36; k++) {
