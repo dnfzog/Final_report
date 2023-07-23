@@ -6,7 +6,7 @@
 #include <Windows.h>
 #define CHARBUFF 124
 #define BUFFSIZE 1024
-#define TIME 5000
+#define TIME 60
 #define OTHERDATA 4
 
 
@@ -137,28 +137,70 @@ void printGraphoutside() {
 
 	// 文字列を描く
 	//mvaddstr(i, i, "Hello curses");
-	mvaddstr(i + 1, 13, "5");
-	mvaddstr(i + 1, 18, "6");
-	mvaddstr(i + 1, 23, "7");
-	mvaddstr(i + 1, 28, "8");
-	mvaddstr(i + 1, 33, "9");
-	mvaddstr(i + 1, 38, "10");
-	mvaddstr(i + 1, 43, "11");
-	mvaddstr(i + 1, 48, "12");
-	mvaddstr(i + 1, 53, "1");
-	mvaddstr(i + 1, 58, "2");
-	mvaddstr(i + 1, 63, "3");
-	mvaddstr(i + 1, 68, "4");
+	mvaddstr(i + 1, 13, "1");
+	mvaddstr(i + 1, 18, "2");
+	mvaddstr(i + 1, 23, "3");
+	mvaddstr(i + 1, 28, "4");
+	mvaddstr(i + 1, 33, "5");
+	mvaddstr(i + 1, 38, "6");
+	mvaddstr(i + 1, 43, "7");
+	mvaddstr(i + 1, 48, "8");
+	mvaddstr(i + 1, 53, "9");
+	mvaddstr(i + 1, 58, "10");
+	mvaddstr(i + 1, 63, "11");
+	mvaddstr(i + 1, 68, "12");
+	mvaddstr(i + 1, 73, "13");
+	mvaddstr(i + 1, 78, "14");
+	mvaddstr(i + 1, 83, "15");
+	
 	int z;
-	for (z = 13; z < 70; z++) {
+	for (z = 13; z < 85; z++) {
 		mvaddstr(i, z, "_");
 	}
 	for (z = 5; z < 20; z++) {
 		mvaddstr(z, 12, "|");
 
 	}
-	mvaddstr(i + 1, 73, "(月)");
-	//i++;
+	mvaddstr(i + 1, 85, "(経過時間)");
+	
+
+	
+	
+}
+
+void printGraph(double data[TIME][OTHERDATA]) {
+	int i = 20;
+	int k, j;
+	
+	mvaddstr(20, 7, "0");
+	mvaddstr(19, 7, "1000");
+	mvaddstr(18, 7, "2000");
+	mvaddstr(17, 7, "3000");
+	mvaddstr(16, 7, "4000");
+	mvaddstr(15, 7, "5000");
+	mvaddstr(14, 7, "6000");
+	mvaddstr(13, 7, "7000");
+	mvaddstr(12, 7, "8000");
+	mvaddstr(11, 7, "9000");
+	mvaddstr(10, 6, "10000");
+	mvaddstr(9, 6, "11000");
+	mvaddstr(8, 6, "12000");
+	mvaddstr(7, 6, "13000");
+	mvaddstr(6, 6, "14000");
+	mvaddstr(5, 6, "15000");
+	mvaddstr(4, 9, "(rpm)");
+	mvaddstr(2, 35, "RPM");
+	//mvaddstr(8, 93, "tps→");
+	for (k = 0; k < 15; k++) {
+		for (j = 0; j < (data[k][0] / 1000); j++) {
+			mvaddstr(i - (j + 1), 13 + (k * 5), "*");
+		}
+
+	}
+}
+
+void printGraphsecond(double data[TIME][OTHERDATA]) {
+	int i = 20;
 	mvaddstr(20, 10, "0");
 	mvaddstr(19, 10, "10");
 	mvaddstr(18, 10, "20");
@@ -171,37 +213,18 @@ void printGraphoutside() {
 	mvaddstr(11, 10, "90");
 	mvaddstr(10, 9, "100");
 	mvaddstr(9, 9, "110");
-	mvaddstr(8, 9, "120");
+	mvaddstr(8, 9,"120");
 	mvaddstr(7, 9, "130");
 	mvaddstr(6, 9, "140");
 	mvaddstr(5, 9, "150");
-	mvaddstr(4, 9, "降水量(mm)");
-	mvaddstr(2, 35, "降水量平均");
+	mvaddstr(4, 9, "(tps)");
+	mvaddstr(2, 35, "スロットル開度");
 	
-}
-
-void printGraph(double data[TIME][OTHERDATA]) {
-	int i = 20;
+	
 	int k, j;
-	mvaddstr(1, 30, "2021年5月-2022年4月");
-	for (k = 0; k < 12; k++) {
-		for (j = 0; j < (data[k][0] / 1000); j++) {
+	for (k = 0; k < 15; k++) {
+		for (j = 0; j < (data[k][1] / 10); j++) {
 			mvaddstr(i - (j + 1), 13 + (k * 5), "*");
-		}
-
-	}
-}
-
-void printGraphsecond(double data[TIME][OTHERDATA]) {
-	int i = 20;
-
-	
-	
-	mvaddstr(1, 30, "2022年5月-2023年4月");
-	int k, j;
-	for (k = 24; k < 36; k++) {
-		for (j = 0; j < (data[k][0] / 1000); j++) {
-			mvaddstr(i - (j + 1), 13 + ((k-24) * 5), "*");
 		}
 
 	}
