@@ -31,10 +31,11 @@ void printGraph(double data[TIME][OTHERDATA]);
 void printGraphsecond(double data[TIME][OTHERDATA]);
 struct Data a;
 struct Data b;
+int x = 0;
 
 int main(int argc, char* argv[])
 {
-	int x = 0;
+	
 	char currentDirectory[CHARBUFF];
 	getGurrentDirectory(currentDirectory);
 	char section[CHARBUFF];
@@ -58,7 +59,7 @@ int main(int argc, char* argv[])
 	//int a[] = { 7,9,10,12,16,21,26,30,20,15,11,9 };
 	//double a[] = { 7.0,9.0,10.0,12.0,16.0,21.0,26.0,30.0,20.0,15.0,11.0 ,9.0 };
 
-	std::cout << "整数を入力してください: ";
+	std::cout << "何秒からのデータを抜き出したいか整数で入力してください: ";
 	if (std::cin >> x) {
 		std::cout << "入力した整数は " << x << " です。" << std::endl;
 	}
@@ -202,9 +203,9 @@ void printGraph(double data[TIME][OTHERDATA]) {
 	mvaddstr(4, 9, "(rpm)");
 	mvaddstr(2, 35, "RPM");
 	//mvaddstr(8, 93, "tps→");
-	for (k = 0; k < 15; k++) {
+	for (k = x; k < x+15; k++) {
 		for (j = 0; j < (data[k][0] / 1000); j++) {
-			mvaddstr(i - (j + 1), 13 + (k * 5), "*");
+			mvaddstr(i - (j + 1), 13 + ((k-x) * 5), "*");
 		}
 
 	}
@@ -233,9 +234,9 @@ void printGraphsecond(double data[TIME][OTHERDATA]) {
 	
 	
 	int k, j;
-	for (k = 0; k < 15; k++) {
+	for (k = x; k < x+15; k++) {
 		for (j = 0; j < (data[k][1] / 10); j++) {
-			mvaddstr(i - (j + 1), 13 + (k * 5), "*");
+			mvaddstr(i - (j + 1), 13 + ((k - x) * 5), "*");
 		}
 
 	}
