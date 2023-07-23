@@ -29,6 +29,7 @@ void CSV2Array(const char* fileName, double data[TIME][OTHERDATA]);
 void printGraphoutside();
 void printGraph(double data[TIME][OTHERDATA]);
 void printGraphsecond(double data[TIME][OTHERDATA]);
+void printGraphthird(double data[TIME][OTHERDATA]);
 struct Data a;
 struct Data b;
 int x = 0;
@@ -97,8 +98,16 @@ int main(int argc, char* argv[])
 			printGraphsecond(a.data);
 		}
 		
-
-		
+		if (key == KEY_LEFT) {
+			erase();
+			printGraphoutside();
+			printGraphthird (a.data);
+		}
+		if (key == KEY_DOWN) {
+			erase();
+			printGraphoutside();
+			printGraphthird(a.data);
+		}
 
 		// 画面を更新
 		refresh();
@@ -244,6 +253,37 @@ void printGraphsecond(double data[TIME][OTHERDATA]) {
 	int k, j;
 	for (k = x; k < x+15; k++) {
 		for (j = 0; j < (data[k][1] / 10); j++) {
+			mvaddstr(i - (j + 1), 13 + ((k - x) * 5), "*");
+		}
+
+	}
+}
+
+void printGraphthird(double data[TIME][OTHERDATA]) {
+	int i = 20;
+	mvaddstr(20, 10, "0");
+	mvaddstr(19, 10, "10");
+	mvaddstr(18, 10, "20");
+	mvaddstr(17, 10, "30");
+	mvaddstr(16, 10, "40");
+	mvaddstr(15, 10, "50");
+	mvaddstr(14, 10, "60");
+	mvaddstr(13, 10, "70");
+	mvaddstr(12, 10, "80");
+	mvaddstr(11, 10, "90");
+	mvaddstr(10, 9, "100");
+	mvaddstr(9, 9, "110");
+	mvaddstr(8, 9, "120");
+	mvaddstr(7, 9, "130");
+	mvaddstr(6, 9, "140");
+	mvaddstr(5, 9, "150");
+	mvaddstr(4, 9, "(度)");
+	mvaddstr(2, 35, "水温");
+
+
+	int k, j;
+	for (k = x; k < x + 15; k++) {
+		for (j = 0; j < (data[k][2] / 10); j++) {
 			mvaddstr(i - (j + 1), 13 + ((k - x) * 5), "*");
 		}
 
