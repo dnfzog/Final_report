@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <curses.h>
 #include <Windows.h>
+#include <iostream>
+
 #define CHARBUFF 124
 #define BUFFSIZE 1024
 #define TIME 5000
@@ -32,6 +34,7 @@ struct Data b;
 
 int main(int argc, char* argv[])
 {
+	int x = 0;
 	char currentDirectory[CHARBUFF];
 	getGurrentDirectory(currentDirectory);
 	char section[CHARBUFF];
@@ -54,6 +57,14 @@ int main(int argc, char* argv[])
 	CSV2Array(keyValue, a.data);
 	//int a[] = { 7,9,10,12,16,21,26,30,20,15,11,9 };
 	//double a[] = { 7.0,9.0,10.0,12.0,16.0,21.0,26.0,30.0,20.0,15.0,11.0 ,9.0 };
+
+	std::cout << "整数を入力してください: ";
+	if (std::cin >> x) {
+		std::cout << "入力した整数は " << x << " です。" << std::endl;
+	}
+	else {
+		std::cout << "不正な入力です。" << std::endl;
+	}
 
 	// 初期化
 	if (initscr() == NULL) {
