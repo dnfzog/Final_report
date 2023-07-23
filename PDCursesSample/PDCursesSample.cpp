@@ -6,7 +6,7 @@
 #include <Windows.h>
 #define CHARBUFF 124
 #define BUFFSIZE 1024
-#define TIME 60
+#define TIME 5000
 #define OTHERDATA 4
 
 
