@@ -6,7 +6,7 @@
 #include <Windows.h>
 #define CHARBUFF 124
 #define BUFFSIZE 1024
-#define RPM 5000
+#define TIME 5000
 #define OTHERDATA 4
 
 
@@ -17,16 +17,16 @@ char s2[BUFFSIZE];
 //double data[MONTHS][NUMDATA];
 
 struct Data {
-	double data[RPM][OTHERDATA];
+	double data[TIME][OTHERDATA];
 	
 };
 
-void CSV2Array(const char* fileName, double data[RPM][OTHERDATA]);
+void CSV2Array(const char* fileName, double data[TIME][OTHERDATA]);
 
 
 void printGraphoutside();
-void printGraph(double data[RPM][OTHERDATA]);
-void printGraphsecond(double data[RPM][OTHERDATA]);
+void printGraph(double data[TIME][OTHERDATA]);
+void printGraphsecond(double data[TIME][OTHERDATA]);
 struct Data a;
 struct Data b;
 
@@ -78,6 +78,7 @@ int main(int argc, char* argv[])
 		}
 		
 
+		
 
 		// 画面を更新
 		refresh();
@@ -90,7 +91,7 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-void CSV2Array(const char* fileName, double data[RPM][OTHERDATA]) {
+void CSV2Array(const char* fileName, double data[TIME][OTHERDATA]) {
 	char* p;
 	int j = 0;
 	int n = 0;
@@ -179,7 +180,7 @@ void printGraphoutside() {
 	
 }
 
-void printGraph(double data[RPM][OTHERDATA]) {
+void printGraph(double data[TIME][OTHERDATA]) {
 	int i = 20;
 	int k, j;
 	mvaddstr(1, 30, "2021年5月-2022年4月");
@@ -191,7 +192,7 @@ void printGraph(double data[RPM][OTHERDATA]) {
 	}
 }
 
-void printGraphsecond(double data[RPM][OTHERDATA]) {
+void printGraphsecond(double data[TIME][OTHERDATA]) {
 	int i = 20;
 
 	
