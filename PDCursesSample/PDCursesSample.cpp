@@ -6,8 +6,10 @@
 #include <Windows.h>
 #define CHARBUFF 124
 #define BUFFSIZE 1024
-#define MONTHS 5000
-#define NUMDATA 1
+#define RPM 5000
+#define OTHERDATA 4
+
+
 //fpは読み込み用、fp2は書き込み用
 FILE* fp, fp2;
 char s[BUFFSIZE];
@@ -15,16 +17,16 @@ char s2[BUFFSIZE];
 //double data[MONTHS][NUMDATA];
 
 struct Data {
-	double data[MONTHS][NUMDATA];
+	double data[RPM][OTHERDATA];
 	
 };
 
-void CSV2Array(const char* fileName, double data[MONTHS][NUMDATA]);
+void CSV2Array(const char* fileName, double data[RPM][OTHERDATA]);
 
 
 
-void printGraph(double data[MONTHS][NUMDATA]);
-void printGraphsecond(double data[MONTHS][NUMDATA]);
+void printGraph(double data[RPM][OTHERDATA]);
+void printGraphsecond(double data[RPM][OTHERDATA]);
 struct Data a;
 struct Data b;
 
@@ -86,7 +88,7 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-void CSV2Array(const char* fileName, double data[MONTHS][NUMDATA]) {
+void CSV2Array(const char* fileName, double data[RPM][OTHERDATA]) {
 	char* p;
 	int j = 0;
 	int n = 0;
@@ -108,7 +110,7 @@ void CSV2Array(const char* fileName, double data[MONTHS][NUMDATA]) {
 
 					//文字列を分離 
 					p = strtok_s(NULL, ",", &token);
-					if (i < 2) {
+					if (i < 4) {
 
 						double tmp = atof(p);
 						data[j][i] = tmp;
@@ -128,7 +130,7 @@ void CSV2Array(const char* fileName, double data[MONTHS][NUMDATA]) {
 }
 
 
-void printGraph(double data[MONTHS][NUMDATA]) {
+void printGraph(double data[RPM][OTHERDATA]) {
 	int i = 20;
 
 	// 文字列を描く
@@ -183,7 +185,7 @@ void printGraph(double data[MONTHS][NUMDATA]) {
 	}
 }
 
-void printGraphsecond(double data[MONTHS][NUMDATA]) {
+void printGraphsecond(double data[RPM][OTHERDATA]) {
 	int i = 20;
 
 	// 文字列を描く
