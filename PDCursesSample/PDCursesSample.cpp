@@ -380,11 +380,25 @@ void printKekka(double data[TIME][OTHERDATA]) {
 	ave_rpm = count_rpm / 15;
 
 	mvaddstr(5, 40, "選んだ秒数から15秒間の平均");
-	mvprintw(6, 40, "回転数平均%lf", ave_rpm);
-	mvprintw(7, 40, "アクセル開度平均%lf", ave_tps);
-	mvprintw(8, 40, "水温平均%lf", ave_wtp);
-	mvprintw(9, 40, "A/F平均%lf", ave_AF);
+	mvprintw(6, 40, "回転数平均:%lf", ave_rpm);
+	mvprintw(7, 40, "アクセル開度平均:%lf", ave_tps);
+	mvprintw(8, 40, "水温平均:%lf", ave_wtp);
+	mvprintw(9, 40, "A/F平均:%lf", ave_AF);
 
+	//判定
+	if (ave_rpm <= 2000 && 1000<=ave_rpm) {
+		mvaddstr(11, 40, "*アイドリング時");
+	}
+	if (ave_rpm >= 9000) {
+		mvaddstr(12, 40, "*高回転域");
+	}
+	if (ave_tps >=100) {
+		mvaddstr(13, 40, "*アクセル開度max");
+	}
+	if (ave_wtp >= 80) {
+		mvaddstr(14, 40, "*ラジエーターファンを回す");
+	}
+	
 
 }
 
