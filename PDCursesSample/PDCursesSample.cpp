@@ -320,31 +320,32 @@ void printGraphthird(double data[TIME][OTHERDATA]) {
 	}
 }
 
+//A/Fグラフ
 void printGraphfourth(double data[TIME][OTHERDATA]) {
 	int i = 20;
 	mvaddstr(20, 11, "0");
-	mvaddstr(19, 11, "5");
-	mvaddstr(18, 10, "10");
-	mvaddstr(17, 10, "15");
-	mvaddstr(16, 10, "20");
-	mvaddstr(15, 10, "25");
-	mvaddstr(14, 10, "30");
-	mvaddstr(13, 10, "35");
-	mvaddstr(12, 10, "40");
-	mvaddstr(11, 10, "45");
-	mvaddstr(10, 10, "55");
-	mvaddstr(9, 10, "60");
-	mvaddstr(8, 10, "65");
-	mvaddstr(7, 10, "70");
-	mvaddstr(6, 10, "75");
-	mvaddstr(5, 10, "80");
+	mvaddstr(19, 11, "2");
+	mvaddstr(18, 11, "4");
+	mvaddstr(17, 11, "6");
+	mvaddstr(16, 11, "8");
+	mvaddstr(15, 10, "10");
+	mvaddstr(14, 10, "12");
+	mvaddstr(13, 10, "14");
+	mvaddstr(12, 10, "16");
+	mvaddstr(11, 10, "18");
+	mvaddstr(10, 10, "20");
+	mvaddstr(9, 10, "22");
+	mvaddstr(8, 10, "24");
+	mvaddstr(7, 10, "26");
+	mvaddstr(6, 10, "28");
+	mvaddstr(5, 10, "30");
 	mvaddstr(4, 9, "(度)");
 	mvaddstr(2, 40, "A/F");
 
 
 	int k, j;
 	for (k = x; k < x + 15; k++) {
-		for (j = 0; j < (data[k][3] / 5); j++) {
+		for (j = 0; j < (data[k][3] / 2); j++) {
 			mvaddstr(i - (j + 1), 13 + ((k - x) * 5), "*");
 		}
 
