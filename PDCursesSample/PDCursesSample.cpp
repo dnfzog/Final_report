@@ -1,5 +1,6 @@
 ﻿// PDCursesSample.cpp : このファイルには 'main' 関数が含まれています。プログラム実行の開始と終了がそこで行われます。
-//車両性能をみるプログラム
+//車両の計測結果をみるプログラム
+//選んだ秒数から15秒間分の計測結果をみることができる
 #include "Setting.h"
 #include <stdio.h>
 #include <curses.h>
@@ -14,20 +15,20 @@
 #define OTHERDATA 4
 
 
-//fpは読み込み用、fp2は書き込み用
-FILE* fp, fp2;
+//fpは読み込み用
+FILE* fp;
 char s[BUFFSIZE];
 char s2[BUFFSIZE];
-//double data[MONTHS][NUMDATA];
 
+
+//構造体
 struct Data {
 	double data[TIME][OTHERDATA];
 
 };
 
+//関数
 void CSV2Array(const char* fileName, double data[TIME][OTHERDATA]);
-
-void calAF(double data[TIME][OTHERDATA]);
 void printGraphoutside();
 void printGraph(double data[TIME][OTHERDATA]);
 void printGraphsecond(double data[TIME][OTHERDATA]);
@@ -35,13 +36,14 @@ void printGraphthird(double data[TIME][OTHERDATA]);
 void printGraphfourth(double data[TIME][OTHERDATA]);
 void printKekka(double data[TIME][OTHERDATA]);
 void fileout(double data[TIME][OTHERDATA]);
+
+//宣言
 struct Data a;
-struct Data b;
 int x = 0;
 
 int main(int argc, char* argv[])
 {
-
+	//ファイル名読み込み
 	char currentDirectory[CHARBUFF];
 	getGurrentDirectory(currentDirectory);
 	char section[CHARBUFF];
@@ -62,10 +64,8 @@ int main(int argc, char* argv[])
 
 	//ファイル読み込み
 	CSV2Array(keyValue, a.data);
-	//calAF(a.data);
-	//int a[] = { 7,9,10,12,16,21,26,30,20,15,11,9 };
-	//double a[] = { 7.0,9.0,10.0,12.0,16.0,21.0,26.0,30.0,20.0,15.0,11.0 ,9.0 };
-
+	
+	//整数の入力
 	std::cout << "入力した整数から15秒間のデータを出力します\n ";
 	std::cout << "0秒から4998秒までのデータしかありません\n";
 	std::cout << "0から4998までで出力したい秒数を整数で入力してください\n";
@@ -80,6 +80,7 @@ int main(int argc, char* argv[])
 		std::cout << "不正な入力です。" << std::endl;
 	}
 
+	//ファイル出力
 	fileout(a.data);
 
 	// 初期化
@@ -90,32 +91,42 @@ int main(int argc, char* argv[])
 	while (true) {
 		// 画面をクリア
 		erase();
+		//グラフ外形
 		printGraphoutside();
+		//回転数グラフ
 		printGraph(a.data);
+
+		//キー判定
 		noecho();
 		cbreak();
 		keypad(stdscr, TRUE);
 		int key = getch();
 
-
+		//→
 		if (key == KEY_RIGHT) {
 			erase();
 			printGraphoutside();
+			//tpsグラフ
 			printGraphsecond(a.data);
 		}
-
+		//←
 		else if (key == KEY_LEFT) {
 			erase();
 			printGraphoutside();
+			//水温グラフ
 			printGraphthird(a.data);
 		}
+		//↓
 		else if (key == KEY_DOWN) {
 			erase();
 			printGraphoutside();
+			//A/Fグラフ
 			printGraphfourth(a.data);
 		}
-		else if (key = KEY_UP) {
+		//↑
+		else if (key == KEY_UP) {
 			erase();
+			//結果
 			printKekka(a.data);
 		}
 
@@ -130,6 +141,7 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
+//ファイル読み込み
 void CSV2Array(const char* fileName, double data[TIME][OTHERDATA]) {
 	char* p;
 	int j = 0;
@@ -148,7 +160,7 @@ void CSV2Array(const char* fileName, double data[TIME][OTHERDATA]) {
 				while (p != NULL) {
 
 					//分離後の文字列を表示 
-					//printf("分離後の文字列：%s\n", token);
+					
 
 					//文字列を分離 
 					p = strtok_s(NULL, ",", &token);
@@ -156,7 +168,7 @@ void CSV2Array(const char* fileName, double data[TIME][OTHERDATA]) {
 
 						double tmp = atof(p);
 						data[j][i] = tmp;
-						printf("data[%d][%d]:%lf\n", j, i, data[j][i]);
+						//printf("data[%d][%d]:%lf\n", j, i, data[j][i]);
 					}
 					i++;
 				}
@@ -171,17 +183,11 @@ void CSV2Array(const char* fileName, double data[TIME][OTHERDATA]) {
 	}
 }
 
-void calAF(double data[TIME][OTHERDATA]) {
-	int m;
-	for (m = 0; m < TIME; m++) {
-		data[m][3] = ((data[m][3] - 0.5) * 2.75) + 9;
-	}
-}
+//グラフ外形
 void printGraphoutside() {
 	int i = 20;
 
 	// 文字列を描く
-	//mvaddstr(i, i, "Hello curses");
 	mvprintw(i + 1, 13, "%d", x);
 	mvprintw(i + 1, 18, "%d", x+1);
 	mvprintw(i + 1, 23, "%d", x + 2);
@@ -217,6 +223,7 @@ void printGraphoutside() {
 
 }
 
+//回転数グラフ
 void printGraph(double data[TIME][OTHERDATA]) {
 	int i = 20;
 	int k, j;
@@ -249,6 +256,7 @@ void printGraph(double data[TIME][OTHERDATA]) {
 	}
 }
 
+//tpsグラフ
 void printGraphsecond(double data[TIME][OTHERDATA]) {
 	int i = 20;
 	mvaddstr(20, 11, "0");
@@ -280,6 +288,7 @@ void printGraphsecond(double data[TIME][OTHERDATA]) {
 	}
 }
 
+//水温グラフ
 void printGraphthird(double data[TIME][OTHERDATA]) {
 	int i = 20;
 	mvaddstr(20, 11, "0");
@@ -342,7 +351,7 @@ void printGraphfourth(double data[TIME][OTHERDATA]) {
 	}
 }
 
-
+//結果
 void printKekka(double data[TIME][OTHERDATA]) {
 	int i = 20;
 
@@ -353,7 +362,7 @@ void printKekka(double data[TIME][OTHERDATA]) {
 
 	mvaddstr(2, 40, "結果");
 
-
+	//抜き出した15秒間のデータの平均
 	int k;
 	double count_AF = 0.0, count_wtp = 0.0, count_tps = 0.0, count_rpm = 0.0;
 	for (k = x; k < x + 15; k++) {
@@ -381,6 +390,7 @@ void printKekka(double data[TIME][OTHERDATA]) {
 void fileout(double data[TIME][OTHERDATA]) {
 	using namespace std;
 
+	//全データの平均
 	int k;
 	double count_AF = 0.0, count_wtp = 0.0, count_tps = 0.0, count_rpm = 0.0;
 	for (k = 0; k < 4999; k++) {
@@ -396,6 +406,7 @@ void fileout(double data[TIME][OTHERDATA]) {
 	ave_tps = count_tps / 4999;
 	ave_rpm = count_rpm / 4999;
 
+	//テキストファイルに出力
 	string filename("kekka.txt");
 	fstream file_out;
 
