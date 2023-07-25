@@ -5,6 +5,8 @@
 #include <curses.h>
 #include <Windows.h>
 #include <iostream>
+#include <fstream>
+#include <string>
 
 #define CHARBUFF 124
 #define BUFFSIZE 1024
@@ -32,6 +34,7 @@ void printGraphsecond(double data[TIME][OTHERDATA]);
 void printGraphthird(double data[TIME][OTHERDATA]);
 void printGraphfourth(double data[TIME][OTHERDATA]);
 void printKekka(double data[TIME][OTHERDATA]);
+void fileout(double data[TIME][OTHERDATA]);
 struct Data a;
 struct Data b;
 int x = 0;
@@ -77,7 +80,7 @@ int main(int argc, char* argv[])
 		std::cout << "不正な入力です。" << std::endl;
 	}
 
-
+	fileout(a.data);
 
 	// 初期化
 	if (initscr() == NULL) {
@@ -373,4 +376,14 @@ void printKekka(double data[TIME][OTHERDATA]) {
 	mvprintw(9, 40, "A/F平均%lf", ave_AF);
 
 
+}
+
+void fileout(double data[TIME][OTHERDATA]) {
+	
+	std::ofstream writing_file;
+	std::string filename = "sample.txt";
+	writing_file.open(filename, std::ios::out);
+	std::string writing_text = "求めた範囲の平均値は以下の通りである。\n日本語話者の間では「シープラ」又は「シープラプラ」と通称される。";
+	writing_file << writing_text << std::endl;
+	writing_file.close();
 }
