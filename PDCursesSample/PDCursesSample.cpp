@@ -20,23 +20,25 @@ char s2[BUFFSIZE];
 
 struct Data {
 	double data[TIME][OTHERDATA];
-	
+
 };
 
 void CSV2Array(const char* fileName, double data[TIME][OTHERDATA]);
 
-
+void calAF(double data[TIME][OTHERDATA]);
 void printGraphoutside();
 void printGraph(double data[TIME][OTHERDATA]);
 void printGraphsecond(double data[TIME][OTHERDATA]);
 void printGraphthird(double data[TIME][OTHERDATA]);
+void printGraphfourth(double data[TIME][OTHERDATA]);
+void printKekka(double data[TIME][OTHERDATA]);
 struct Data a;
 struct Data b;
 int x = 0;
 
 int main(int argc, char* argv[])
 {
-	
+
 	char currentDirectory[CHARBUFF];
 	getGurrentDirectory(currentDirectory);
 	char section[CHARBUFF];
@@ -57,9 +59,10 @@ int main(int argc, char* argv[])
 
 	//ファイル読み込み
 	CSV2Array(keyValue, a.data);
+	calAF(a.data);
 	//int a[] = { 7,9,10,12,16,21,26,30,20,15,11,9 };
 	//double a[] = { 7.0,9.0,10.0,12.0,16.0,21.0,26.0,30.0,20.0,15.0,11.0 ,9.0 };
-	
+
 	std::cout << "入力した整数から15秒間のデータを出力します\n ";
 	std::cout << "0秒から4998秒までのデータしかありません\n";
 	std::cout << "0から4998までで出力したい秒数を整数で入力してください\n";
@@ -68,19 +71,19 @@ int main(int argc, char* argv[])
 	std::cout << "整数を入力してください：";
 	if (std::cin >> x) {
 		std::cout << "入力した整数は " << x << " です。" << std::endl;
-		
+
 	}
 	else {
 		std::cout << "不正な入力です。" << std::endl;
 	}
 
-	
-	
+
+
 	// 初期化
 	if (initscr() == NULL) {
 		return 1;
 	}
-	
+
 	while (true) {
 		// 画面をクリア
 		erase();
@@ -91,22 +94,26 @@ int main(int argc, char* argv[])
 		keypad(stdscr, TRUE);
 		int key = getch();
 
-		
+
 		if (key == KEY_RIGHT) {
 			erase();
 			printGraphoutside();
 			printGraphsecond(a.data);
 		}
-		
-		if (key == KEY_LEFT) {
-			erase();
-			printGraphoutside();
-			printGraphthird (a.data);
-		}
-		if (key == KEY_DOWN) {
+
+		else if (key == KEY_LEFT) {
 			erase();
 			printGraphoutside();
 			printGraphthird(a.data);
+		}
+		else if (key == KEY_DOWN) {
+			erase();
+			printGraphoutside();
+			printGraphfourth(a.data);
+		}
+		else if (key = KEY_UP) {
+			erase();
+			printKekka(a.data);
 		}
 
 		// 画面を更新
@@ -114,8 +121,8 @@ int main(int argc, char* argv[])
 
 
 
-		// 1秒待機
-		napms(1000);
+		// 0.5秒待機
+		napms(500);
 	}
 	return 0;
 }
@@ -146,7 +153,7 @@ void CSV2Array(const char* fileName, double data[TIME][OTHERDATA]) {
 
 						double tmp = atof(p);
 						data[j][i] = tmp;
-						printf("data[%d][%d]降水量:%lf\n", j, i, data[j][i]);
+						printf("data[%d][%d]:%lf\n", j, i, data[j][i]);
 					}
 					i++;
 				}
@@ -161,6 +168,12 @@ void CSV2Array(const char* fileName, double data[TIME][OTHERDATA]) {
 	}
 }
 
+void calAF(double data[TIME][OTHERDATA]) {
+	int m;
+	for (m = 0; m < TIME; m++) {
+		data[m][3] = ((data[m][3] - 0.5) * 2.75) + 9;
+	}
+}
 void printGraphoutside() {
 	int i = 20;
 
@@ -181,7 +194,7 @@ void printGraphoutside() {
 	mvaddstr(i + 1, 73, "13");
 	mvaddstr(i + 1, 78, "14");
 	mvaddstr(i + 1, 83, "15");
-	
+
 	int z;
 	for (z = 13; z < 85; z++) {
 		mvaddstr(i, z, "_");
@@ -191,16 +204,19 @@ void printGraphoutside() {
 
 	}
 	mvaddstr(i + 1, 85, "(経過時間)");
-	
 
-	
-	
+	mvaddstr(25, 7, "←水温グラフ");
+	mvaddstr(25, 80, "スロットル開度グラフ→");
+	mvaddstr(26, 42, "↓A/Fグラフ");
+	mvaddstr(24, 42, "↑結果");
+
+
 }
 
 void printGraph(double data[TIME][OTHERDATA]) {
 	int i = 20;
 	int k, j;
-	
+
 	mvaddstr(20, 7, "0");
 	mvaddstr(19, 7, "1000");
 	mvaddstr(18, 7, "2000");
@@ -218,11 +234,12 @@ void printGraph(double data[TIME][OTHERDATA]) {
 	mvaddstr(6, 6, "14000");
 	mvaddstr(5, 6, "15000");
 	mvaddstr(4, 9, "(rpm)");
-	mvaddstr(2, 35, "RPM");
-	//mvaddstr(8, 93, "tps→");
-	for (k = x; k < x+15; k++) {
+	mvaddstr(2, 40, "RPM");
+
+	//mvaddstr(27, 44, "↓");
+	for (k = x; k < x + 15; k++) {
 		for (j = 0; j < (data[k][0] / 1000); j++) {
-			mvaddstr(i - (j + 1), 13 + ((k-x) * 5), "*");
+			mvaddstr(i - (j + 1), 13 + ((k - x) * 5), "*");
 		}
 
 	}
@@ -242,16 +259,16 @@ void printGraphsecond(double data[TIME][OTHERDATA]) {
 	mvaddstr(11, 10, "90");
 	mvaddstr(10, 9, "100");
 	mvaddstr(9, 9, "110");
-	mvaddstr(8, 9,"120");
+	mvaddstr(8, 9, "120");
 	mvaddstr(7, 9, "130");
 	mvaddstr(6, 9, "140");
 	mvaddstr(5, 9, "150");
 	mvaddstr(4, 9, "(tps)");
-	mvaddstr(2, 35, "スロットル開度");
-	
-	
+	mvaddstr(2, 40, "スロットル開度");
+
+
 	int k, j;
-	for (k = x; k < x+15; k++) {
+	for (k = x; k < x + 15; k++) {
 		for (j = 0; j < (data[k][1] / 10); j++) {
 			mvaddstr(i - (j + 1), 13 + ((k - x) * 5), "*");
 		}
@@ -278,7 +295,7 @@ void printGraphthird(double data[TIME][OTHERDATA]) {
 	mvaddstr(6, 9, "140");
 	mvaddstr(5, 9, "150");
 	mvaddstr(4, 9, "(度)");
-	mvaddstr(2, 35, "水温");
+	mvaddstr(2, 40, "水温");
 
 
 	int k, j;
@@ -288,4 +305,70 @@ void printGraphthird(double data[TIME][OTHERDATA]) {
 		}
 
 	}
+}
+
+void printGraphfourth(double data[TIME][OTHERDATA]) {
+	int i = 20;
+	mvaddstr(20, 11, "0");
+	mvaddstr(19, 11, "5");
+	mvaddstr(18, 11, "10");
+	mvaddstr(17, 11, "15");
+	mvaddstr(16, 11, "20");
+	mvaddstr(15, 10, "25");
+	mvaddstr(14, 10, "30");
+	mvaddstr(13, 10, "35");
+	mvaddstr(12, 10, "40");
+	mvaddstr(11, 10, "45");
+	mvaddstr(10, 10, "55");
+	mvaddstr(9, 10, "60");
+	mvaddstr(8, 10, "65");
+	mvaddstr(7, 10, "70");
+	mvaddstr(6, 10, "75");
+	mvaddstr(5, 10, "80");
+	mvaddstr(4, 9, "(度)");
+	mvaddstr(2, 40, "A/F");
+
+
+	int k, j;
+	for (k = x; k < x + 15; k++) {
+		for (j = 0; j < (data[k][3] / 5); j++) {
+			mvaddstr(i - (j + 1), 13 + ((k - x) * 5), "*");
+		}
+
+	}
+}
+
+
+void printKekka(double data[TIME][OTHERDATA]) {
+	int i = 20;
+
+	mvaddstr(25, 7, "←水温グラフ");
+	mvaddstr(25, 80, "スロットル開度グラフ→");
+	mvaddstr(26, 42, "↓A/Fグラフ");
+	mvaddstr(24, 42, "↑結果");
+
+	mvaddstr(2, 40, "結果");
+
+
+	int k, j;
+	double count_AF = 0.0, count_wtp = 0.0, count_tps = 0.0, count_rpm = 0.0;
+	for (k = x; k < x + 15; k++) {
+		count_AF = count_AF + data[k][3];
+		count_wtp = count_wtp + data[k][2];
+		count_tps = count_tps + data[k][1];
+		count_rpm = count_rpm + data[k][0];
+
+	}
+	double ave_AF = 0.0, ave_wtp = 0.0, ave_tps = 0.0, ave_rpm = 0.0;
+	ave_AF = count_AF / 15;
+	ave_wtp = count_wtp / 15;
+	ave_tps = count_tps / 15;
+	ave_rpm = count_rpm / 15;
+
+	mvaddstr(8, 40, "選んだ秒数から15秒間の平均");
+	mvprintw(9, 40, "回転数平均%lf", ave_rpm);
+	mvprintw(10, 40, "アクセル開度平均%lf", ave_tps);
+	mvprintw(11, 40, "水温平均%lf", ave_wtp);
+	mvprintw(12, 40, "A/F平均%lf", ave_AF);
+
 }
