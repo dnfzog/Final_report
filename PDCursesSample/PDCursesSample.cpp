@@ -179,21 +179,22 @@ void printGraphoutside() {
 
 	// 文字列を描く
 	//mvaddstr(i, i, "Hello curses");
-	mvaddstr(i + 1, 13, "1");
-	mvaddstr(i + 1, 18, "2");
-	mvaddstr(i + 1, 23, "3");
-	mvaddstr(i + 1, 28, "4");
-	mvaddstr(i + 1, 33, "5");
-	mvaddstr(i + 1, 38, "6");
-	mvaddstr(i + 1, 43, "7");
-	mvaddstr(i + 1, 48, "8");
-	mvaddstr(i + 1, 53, "9");
-	mvaddstr(i + 1, 58, "10");
-	mvaddstr(i + 1, 63, "11");
-	mvaddstr(i + 1, 68, "12");
-	mvaddstr(i + 1, 73, "13");
-	mvaddstr(i + 1, 78, "14");
-	mvaddstr(i + 1, 83, "15");
+	mvprintw(i + 1, 13, "%d", x);
+	mvprintw(i + 1, 18, "%d", x+1);
+	mvprintw(i + 1, 23, "%d", x + 2);
+	mvprintw(i + 1, 28, "%d", x + 3);
+	mvprintw(i + 1, 33, "%d", x + 4);
+	mvprintw(i + 1, 38, "%d", x + 5);
+	mvprintw(i + 1, 43, "%d", x + 6);
+	mvprintw(i + 1, 48, "%d", x + 7);
+	mvprintw(i + 1, 53, "%d", x + 8);
+	mvprintw(i + 1, 58, "%d", x + 9);
+	mvprintw(i + 1, 63, "%d", x + 10);
+	mvprintw(i + 1, 68, "%d", x + 11);
+	mvprintw(i + 1, 73, "%d", x + 12);
+	mvprintw(i + 1, 78, "%d", x + 13);
+	mvprintw(i + 1, 83, "%d", x + 14);
+	
 
 	int z;
 	for (z = 13; z < 85; z++) {
@@ -311,9 +312,9 @@ void printGraphfourth(double data[TIME][OTHERDATA]) {
 	int i = 20;
 	mvaddstr(20, 11, "0");
 	mvaddstr(19, 11, "5");
-	mvaddstr(18, 11, "10");
-	mvaddstr(17, 11, "15");
-	mvaddstr(16, 11, "20");
+	mvaddstr(18, 10, "10");
+	mvaddstr(17, 10, "15");
+	mvaddstr(16, 10, "20");
 	mvaddstr(15, 10, "25");
 	mvaddstr(14, 10, "30");
 	mvaddstr(13, 10, "35");
@@ -365,10 +366,10 @@ void printKekka(double data[TIME][OTHERDATA]) {
 	ave_tps = count_tps / 15;
 	ave_rpm = count_rpm / 15;
 
-	mvaddstr(8, 40, "選んだ秒数から15秒間の平均");
-	mvprintw(9, 40, "回転数平均%lf", ave_rpm);
-	mvprintw(10, 40, "アクセル開度平均%lf", ave_tps);
-	mvprintw(11, 40, "水温平均%lf", ave_wtp);
-	mvprintw(12, 40, "A/F平均%lf", ave_AF);
+	mvaddstr(5, 40, "選んだ秒数から15秒間の平均");
+	mvprintw(6, 40, "回転数平均%lf", ave_rpm);
+	mvprintw(7, 40, "アクセル開度平均%lf", ave_tps);
+	mvprintw(8, 40, "水温平均%lf", ave_wtp);
+	mvprintw(9, 40, "A/F平均%lf", ave_AF);
 
 }
