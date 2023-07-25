@@ -204,7 +204,7 @@ void printGraphoutside() {
 		mvaddstr(z, 12, "|");
 
 	}
-	mvaddstr(i + 1, 85, "(経過時間)");
+	mvaddstr(i + 1, 88, "(経過時間)");
 
 	mvaddstr(25, 7, "←水温グラフ");
 	mvaddstr(25, 80, "スロットル開度グラフ→");
@@ -218,22 +218,22 @@ void printGraph(double data[TIME][OTHERDATA]) {
 	int i = 20;
 	int k, j;
 
-	mvaddstr(20, 7, "0");
-	mvaddstr(19, 7, "1000");
-	mvaddstr(18, 7, "2000");
-	mvaddstr(17, 7, "3000");
-	mvaddstr(16, 7, "4000");
-	mvaddstr(15, 7, "5000");
-	mvaddstr(14, 7, "6000");
-	mvaddstr(13, 7, "7000");
-	mvaddstr(12, 7, "8000");
-	mvaddstr(11, 7, "9000");
-	mvaddstr(10, 6, "10000");
-	mvaddstr(9, 6, "11000");
-	mvaddstr(8, 6, "12000");
-	mvaddstr(7, 6, "13000");
-	mvaddstr(6, 6, "14000");
-	mvaddstr(5, 6, "15000");
+	mvaddstr(20, 11, "0");
+	mvaddstr(19, 8, "1000");
+	mvaddstr(18, 8, "2000");
+	mvaddstr(17, 8, "3000");
+	mvaddstr(16, 8, "4000");
+	mvaddstr(15, 8, "5000");
+	mvaddstr(14, 8, "6000");
+	mvaddstr(13, 8, "7000");
+	mvaddstr(12, 8, "8000");
+	mvaddstr(11, 8, "9000");
+	mvaddstr(10, 7, "10000");
+	mvaddstr(9, 7, "11000");
+	mvaddstr(8, 7, "12000");
+	mvaddstr(7, 7, "13000");
+	mvaddstr(6, 7, "14000");
+	mvaddstr(5, 7, "15000");
 	mvaddstr(4, 9, "(rpm)");
 	mvaddstr(2, 40, "RPM");
 
@@ -248,7 +248,7 @@ void printGraph(double data[TIME][OTHERDATA]) {
 
 void printGraphsecond(double data[TIME][OTHERDATA]) {
 	int i = 20;
-	mvaddstr(20, 10, "0");
+	mvaddstr(20, 11, "0");
 	mvaddstr(19, 10, "10");
 	mvaddstr(18, 10, "20");
 	mvaddstr(17, 10, "30");
@@ -279,7 +279,7 @@ void printGraphsecond(double data[TIME][OTHERDATA]) {
 
 void printGraphthird(double data[TIME][OTHERDATA]) {
 	int i = 20;
-	mvaddstr(20, 10, "0");
+	mvaddstr(20, 11, "0");
 	mvaddstr(19, 10, "10");
 	mvaddstr(18, 10, "20");
 	mvaddstr(17, 10, "30");
