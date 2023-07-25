@@ -372,4 +372,5 @@ void printKekka(double data[TIME][OTHERDATA]) {
 	mvprintw(8, 40, "水温平均%lf", ave_wtp);
 	mvprintw(9, 40, "A/F平均%lf", ave_AF);
 
+
 }
