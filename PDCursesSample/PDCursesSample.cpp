@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 
 	//ファイル読み込み
 	CSV2Array(keyValue, a.data);
-	calAF(a.data);
+	//calAF(a.data);
 	//int a[] = { 7,9,10,12,16,21,26,30,20,15,11,9 };
 	//double a[] = { 7.0,9.0,10.0,12.0,16.0,21.0,26.0,30.0,20.0,15.0,11.0 ,9.0 };
 
@@ -354,7 +354,7 @@ void printKekka(double data[TIME][OTHERDATA]) {
 	mvaddstr(2, 40, "結果");
 
 
-	int k, j;
+	int k;
 	double count_AF = 0.0, count_wtp = 0.0, count_tps = 0.0, count_rpm = 0.0;
 	for (k = x; k < x + 15; k++) {
 		count_AF = count_AF + data[k][3];
@@ -379,11 +379,36 @@ void printKekka(double data[TIME][OTHERDATA]) {
 }
 
 void fileout(double data[TIME][OTHERDATA]) {
-	
-	std::ofstream writing_file;
-	std::string filename = "sample.txt";
-	writing_file.open(filename, std::ios::out);
-	std::string writing_text = "求めた範囲の平均値は以下の通りである。\n日本語話者の間では「シープラ」又は「シープラプラ」と通称される。";
-	writing_file << writing_text << std::endl;
-	writing_file.close();
+	using namespace std;
+
+	int k;
+	double count_AF = 0.0, count_wtp = 0.0, count_tps = 0.0, count_rpm = 0.0;
+	for (k = 0; k < 4999; k++) {
+		count_AF = count_AF + data[k][3];
+		count_wtp = count_wtp + data[k][2];
+		count_tps = count_tps + data[k][1];
+		count_rpm = count_rpm + data[k][0];
+
+	}
+	double ave_AF = 0.0, ave_wtp = 0.0, ave_tps = 0.0, ave_rpm = 0.0;
+	ave_AF = count_AF / 4999;
+	ave_wtp = count_wtp / 4999;
+	ave_tps = count_tps / 4999;
+	ave_rpm = count_rpm / 4999;
+
+	string filename("kekka.txt");
+	fstream file_out;
+
+	file_out.open(filename, std::ios_base::out);
+	if (!file_out.is_open()) {
+		cout << "failed to open " << filename << '\n';
+	}
+	else {
+		file_out << "全データにおける平均は以下の通りです\n" << endl;
+		file_out << "回転数平均は" << ave_rpm << "です\n" << endl;
+		file_out << "水温平均は " << ave_wtp << "です\n" << endl;
+		file_out << "スロットル開度平均は " << ave_tps << "です\n" << endl;
+		file_out << "A/F平均は " << ave_AF << "です\n" << endl;
+		cout << "Done Writing!" << endl;
+	}
 }
